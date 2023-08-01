@@ -16,18 +16,19 @@ const userSchema = new Schema(
       required: [true, "Email is required"],
       unique: true,
     },
-    subscription: {
-      type: String,
-      enum: ["starter", "pro", "business"],
-      default: "starter",
-    },
     token: {
       type: String,
       default: null,
     },
     avatarURL: {
-      type: String,
-      default: defaultAvatar,
+      url: { type: String, default: defaultAvatar },
+      width: { type: Number, default: 300 },
+      height: { type: Number, default: 300 },
+      format: { type: String, default: "jpg" },
+      asset_id: { type: String, default: 0 },
+      public_id: { type: String, default: 0 },
+      created_at: { type: String, default: new Date() },
+      original_filename: { type: String, default: "defaultAvatar" },
     },
     verify: {
       type: Boolean,

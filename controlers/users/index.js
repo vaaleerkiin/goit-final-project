@@ -1,5 +1,5 @@
 const { ctrlWrapper } = require("../../helpers");
-const subscription = require("./subscription");
+
 const current = require("./current");
 const login = require("./login");
 const logout = require("./logout");
@@ -13,7 +13,6 @@ module.exports = {
   login: ctrlWrapper(login),
   logout: ctrlWrapper(logout),
   current: ctrlWrapper(current),
-  subscription: ctrlWrapper(subscription),
   avatars: ctrlWrapper(avatars),
   verifyToken: ctrlWrapper(verifyToken),
   verify: ctrlWrapper(verify),

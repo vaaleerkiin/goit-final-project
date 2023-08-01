@@ -1,24 +1,36 @@
 const fs = require("fs/promises");
-const path = require("path");
 const { User, defaultAvatar } = require("../../models/user");
-
-const booksDir = path.join(__dirname, "../", "../", "public", "avatars");
+const { uploadImage, deleteImage } = require("../../services");
 
 const avatars = async (req, res, next) => {
-  const { path: tempUpload, originalname } = req.file;
+  const { path: tempUpload } = req.file;
   const { _id } = req.user;
-  const newName = `${_id}_${originalname}`;
+
   const user = await User.findById(_id);
 
-  const resultUpload = path.join(booksDir, newName);
-  await fs.rename(tempUpload, resultUpload);
-  const cover = path.join("avatars", newName);
+  const url = await uploadImage(tempUpload);
 
-  if (user.avatarURL !== defaultAvatar && user.avatarURL !== cover) {
-    const prevAvatar = path.join(booksDir, "../", user.avatarURL);
-    await fs.unlink(prevAvatar);
+  if (
+    user.avatarURL.url !== defaultAvatar &&
+    user.avatarURL.asset_id !== url.asset_id
+  ) {
+    await deleteImage(user.avatarURL.public_id);
   }
+
+  const cover = {
+    url: url.url,
+    width: url.width,
+    height: url.height,
+    format: url.format,
+    asset_id: url.asset_id,
+    public_id: url.public_id,
+    created_at: url.created_at,
+    original_filename: url.original_filename,
+  };
   await User.findByIdAndUpdate(_id, { avatarURL: cover });
+
+  await fs.unlink(tempUpload);
+
   res.status(201).json({ message: cover });
 };
 
