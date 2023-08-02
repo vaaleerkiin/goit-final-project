@@ -12,7 +12,13 @@ router.post("/logout", Authenticate, ctrl.logout);
 
 router.get("/current", Authenticate, ctrl.current);
 
-router.patch("/avatars", Authenticate, upload.single("avatar"), ctrl.avatars);
+router.patch(
+  "/edit",
+  Authenticate,
+  upload.single("avatar"),
+  validateBody(shema.registerShema),
+  ctrl.editUser
+);
 
 router.post("/verify", validateBody(shema.verifyShema), ctrl.verify);
 

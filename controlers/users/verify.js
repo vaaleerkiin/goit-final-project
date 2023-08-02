@@ -1,6 +1,6 @@
-const { HttpError, mailMurkup } = require("../../helpers");
+const { HttpError } = require("../../helpers");
 const { User } = require("../../models/user");
-const { sendMail } = require("../../services");
+// const { sendMail } = require("../../services");
 
 const verify = async (req, res, next) => {
   const { email } = req.body;
@@ -10,7 +10,7 @@ const verify = async (req, res, next) => {
     throw HttpError(404);
   }
 
-  const verificationToken = user.verificationToken;
+  // const verificationToken = user.verificationToken;
 
   // await sendMail({
   //   to: email,

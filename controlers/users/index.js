@@ -4,7 +4,7 @@ const current = require("./current");
 const login = require("./login");
 const logout = require("./logout");
 const register = require("./register");
-const avatars = require("./avatars");
+const editUser = require("./editUser");
 const verifyToken = require("./verifyToken");
 const verify = require("./verify");
 
@@ -13,7 +13,7 @@ module.exports = {
   login: ctrlWrapper(login),
   logout: ctrlWrapper(logout),
   current: ctrlWrapper(current),
-  avatars: ctrlWrapper(avatars),
+  editUser: ctrlWrapper(editUser),
   verifyToken: ctrlWrapper(verifyToken),
   verify: ctrlWrapper(verify),
 };

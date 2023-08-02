@@ -1,16 +1,16 @@
-const { HttpError, mailMurkup } = require("../../helpers");
-const { sendMail } = require("../../services");
+const { HttpError } = require("../../helpers");
+// const { sendMail } = require("../../services");
 const { User } = require("../../models/user");
-const bcrypt = require("bcrypt");
+const CryptoJS = require("crypto-js");
 const { v4: uuidv4 } = require("uuid");
-
+const { SECRET_KEY } = process.env;
 const register = async (req, res, next) => {
   const { email, name, password } = req.body;
   const user = await User.findOne({ email });
   if (user) {
     throw HttpError(409, "Email in use");
   }
-  const hashPass = await bcrypt.hash(password, 10);
+  const hashPass = CryptoJS.AES.encrypt(password, SECRET_KEY).toString();
   const verificationToken = uuidv4();
   await User.create({
     name,
