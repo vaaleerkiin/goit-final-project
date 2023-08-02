@@ -1,6 +1,6 @@
 const express = require("express");
 const ctrl = require("../../controlers/columns");
-const { Authenticate, validateBody } = require("../../middlewares");
+const { Authenticate, validateBody, isValidId } = require("../../middlewares");
 const { shemas } = require("../../models/column");
 
 const router = express.Router();
@@ -8,6 +8,7 @@ const router = express.Router();
 router.post(
   "/:boardId",
   Authenticate,
+  isValidId("boardId"),
   validateBody(shemas.createShema),
   ctrl.createColumn
 );
@@ -15,10 +16,16 @@ router.post(
 router.patch(
   "/:columnId",
   Authenticate,
+  isValidId("columnId"),
   validateBody(shemas.editShema),
   ctrl.editColumn
 );
 
-router.delete("/:columnId", Authenticate, ctrl.deleteColumn);
+router.delete(
+  "/:columnId",
+  Authenticate,
+  isValidId("columnId"),
+  ctrl.deleteColumn
+);
 
 module.exports = router;

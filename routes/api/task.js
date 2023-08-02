@@ -1,6 +1,6 @@
 const express = require("express");
 const ctrl = require("../../controlers/tasks");
-const { Authenticate, validateBody } = require("../../middlewares");
+const { Authenticate, validateBody, isValidId } = require("../../middlewares");
 const { shemas } = require("../../models/column");
 
 const router = express.Router();
@@ -8,7 +8,7 @@ const router = express.Router();
 router.post(
   "/:columnId",
   Authenticate,
-  //   isValidId,
+  isValidId("columnId"),
   validateBody(shemas.createTaskShema),
   ctrl.createTask
 );
@@ -16,15 +16,17 @@ router.post(
 router.patch(
   "/:taskId",
   Authenticate,
-  //   isValidId,
+  isValidId("taskId"),
   validateBody(shemas.createTaskShema),
   ctrl.editTask
 );
 
-router.delete("/:taskId", Authenticate, ctrl.deleteTask);
+router.delete("/:taskId", Authenticate, isValidId("taskId"), ctrl.deleteTask);
 
 router.patch(
   "/dragTask/:taskId",
+  Authenticate,
+  isValidId("taskId"),
   validateBody(shemas.dragShema),
   ctrl.dragTask
 );

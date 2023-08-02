@@ -1,6 +1,6 @@
 const express = require("express");
 const ctrl = require("../../controlers/boards");
-const { validateBody, Authenticate } = require("../../middlewares");
+const { validateBody, Authenticate, isValidId } = require("../../middlewares");
 const { shemas } = require("../../models/board");
 
 const router = express.Router();
@@ -17,6 +17,7 @@ router.post(
 router.patch(
   "/:boardId",
   Authenticate,
+  isValidId("boardId"),
   validateBody(shemas.editShema),
   ctrl.editBoard
 );

@@ -1,6 +1,7 @@
 const { Schema, model } = require("mongoose");
 
 const Joi = require("joi");
+const { handleMongooseError } = require("../helpers");
 
 const ColumnSchema = new Schema(
   {
@@ -22,6 +23,9 @@ const ColumnSchema = new Schema(
 
   { versionKey: false, timestamps: true }
 );
+
+ColumnSchema.post("save", handleMongooseError);
+const Column = model("column", ColumnSchema);
 
 const dragShema = Joi.object({
   columnId: Joi.string().required(),
@@ -47,7 +51,5 @@ const createTaskShema = Joi.object({
 });
 
 const shemas = { dragShema, createShema, editShema, createTaskShema };
-
-const Column = model("column", ColumnSchema);
 
 module.exports = { Column, shemas };

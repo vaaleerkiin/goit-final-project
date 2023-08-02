@@ -1,5 +1,6 @@
 const { Schema, model } = require("mongoose");
 const Joi = require("joi");
+const { handleMongooseError } = require("../helpers");
 
 const boardSchema = new Schema(
   {
@@ -49,6 +50,9 @@ const boardSchema = new Schema(
   { versionKey: false, timestamps: true }
 );
 
+boardSchema.post("save", handleMongooseError);
+const Board = model("board", boardSchema);
+
 const createShema = Joi.object({
   name: Joi.string().required(),
   background: Joi.string().required(),
@@ -62,6 +66,5 @@ const editShema = Joi.object({
 });
 
 const shemas = { createShema, editShema };
-const Board = model("board", boardSchema);
 
 module.exports = { Board, shemas };
