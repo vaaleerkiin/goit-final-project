@@ -12,9 +12,11 @@ const login = async (req, res, next) => {
     throw HttpError(401, "Email or password is wrong");
   }
 
-  const passwordCompare = CryptoJS.AES.decrypt(password, SECRET_KEY).toString(
-    CryptoJS.enc.Utf8
-  );
+  const passwordCompare =
+    CryptoJS.AES.decrypt(user.password, SECRET_KEY).toString(
+      CryptoJS.enc.Utf8
+    ) === password;
+
   if (!passwordCompare) {
     throw HttpError(401, "Email or password is wrong");
   }

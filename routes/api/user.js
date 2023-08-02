@@ -15,13 +15,21 @@ router.get("/current", Authenticate, ctrl.current);
 router.patch(
   "/edit",
   Authenticate,
-  upload.single("avatar"),
   validateBody(shema.registerShema),
   ctrl.editUser
 );
 
+router.patch("/avatars", Authenticate, upload.single("avatar"), ctrl.avatars);
+
 router.post("/verify", validateBody(shema.verifyShema), ctrl.verify);
 
 router.get("/verify/:verificationToken", ctrl.verifyToken);
+
+router.patch(
+  "/theme",
+  Authenticate,
+  validateBody(shema.updateThemeSchema),
+  ctrl.theme
+);
 
 module.exports = router;

@@ -38,6 +38,12 @@ const userSchema = new Schema(
       type: String,
       required: [true, "Verify token is required"],
     },
+    boards: { type: Array, default: [] },
+    theme: {
+      type: String,
+      enum: ["dark", "light", "violet"],
+      default: "violet",
+    },
   },
 
   { versionKey: false, timestamps: true }
@@ -56,8 +62,8 @@ const loginShema = Joi.object({
   password: Joi.string().required(),
 });
 
-const updateSubscriptionSchema = Joi.object({
-  subscription: Joi.string().valid("starter", "pro", "business").required(),
+const updateThemeSchema = Joi.object({
+  theme: Joi.string().valid("dark", "light", "violet").required(),
 });
 
 const verifyShema = Joi.object({
@@ -67,7 +73,7 @@ const verifyShema = Joi.object({
 const shema = {
   registerShema,
   loginShema,
-  updateSubscriptionSchema,
+  updateThemeSchema,
   verifyShema,
 };
 
