@@ -1,8 +1,12 @@
 const fs = require("fs/promises");
+const { HttpError } = require("../../helpers");
 const { User, defaultAvatar } = require("../../models/user");
 const { uploadImage, deleteImage } = require("../../services");
 
 const avatars = async (req, res, next) => {
+  if (!req.file) {
+    throw HttpError(400, "An avatar is required");
+  }
   const { path: tempUpload } = req.file;
   const { _id } = req.user;
 
