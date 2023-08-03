@@ -15,7 +15,7 @@ router.get("/current", Authenticate, ctrl.current);
 router.patch(
   "/edit",
   Authenticate,
-  validateBody(shema.registerShema),
+  validateBody(shema.editShema),
   ctrl.editUser
 );
 

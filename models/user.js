@@ -63,6 +63,12 @@ const loginShema = Joi.object({
   password: Joi.string().required(),
 });
 
+const editShema = Joi.object({
+  name: Joi.string().required(),
+  email: Joi.string().required(),
+  password: Joi.string(),
+});
+
 const updateThemeSchema = Joi.object({
   theme: Joi.string().valid("dark", "light", "violet").required(),
 });
@@ -76,6 +82,7 @@ const shema = {
   loginShema,
   updateThemeSchema,
   verifyShema,
+  editShema,
 };
 
 module.exports = { shema, User, defaultAvatar };
