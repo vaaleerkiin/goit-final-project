@@ -16,7 +16,7 @@ const login = async (req, res, next) => {
     CryptoJS.AES.decrypt(user.password, SECRET_KEY).toString(
       CryptoJS.enc.Utf8
     ) === password;
-
+  console.log(passwordCompare);
   if (!passwordCompare) {
     throw HttpError(401, "Email or password is wrong");
   }
