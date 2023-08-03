@@ -50,6 +50,11 @@ const createTaskShema = Joi.object({
   deadLine: Joi.date().required(),
 });
 
-const shemas = { dragShema, createShema, editShema, createTaskShema };
+const shemas = {
+  dragShema,
+  createShema,
+  editShema,
+  createTaskShema,
+};
 
 module.exports = { Column, shemas };

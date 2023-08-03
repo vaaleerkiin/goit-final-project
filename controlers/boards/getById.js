@@ -19,6 +19,11 @@ const getById = async (req, res, next) => {
       },
     },
   ]);
+  result[0].columns.sort((a, b) => {
+    const dateA = new Date(a.createdAt);
+    const dateB = new Date(b.createdAt);
+    return dateA - dateB;
+  });
 
   res.status(200).json(...result);
 };

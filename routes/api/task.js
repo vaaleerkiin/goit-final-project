@@ -17,7 +17,7 @@ router.patch(
   "/:taskId",
   Authenticate,
   isValidId("taskId"),
-  validateBody(shemas.createTaskShema),
+  validateBody(shemas.editTaskShema),
   ctrl.editTask
 );
 
