@@ -19,7 +19,11 @@ const current = async (req, res, next) => {
   ]);
 
   delete result[0].password;
-  res.json(...result);
+  const [data] = result;
+  res.json({
+    token: data.token,
+    user: { name: data.name, email: data.email, avatar: data.avatarURL.url },
+  });
 };
 
 module.exports = current;

@@ -43,7 +43,7 @@ const editUser = async (req, res, next) => {
   res.status(201).json({
     name: result.name,
     email: result.email,
-    avatarURL: result.avatarURL,
+    avatar: result.avatarURL.url,
   });
 };
 
