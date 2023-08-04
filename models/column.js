@@ -50,11 +50,21 @@ const createTaskShema = Joi.object({
   deadLine: Joi.date().required(),
 });
 
+const editTaskShema = Joi.object({
+  title: Joi.string().required(),
+  description: Joi.string().required(),
+  labelColor: Joi.string()
+    .valid("Without priority", "Low", "Medium", "High")
+    .required(),
+  deadLine: Joi.date().required(),
+});
+
 const shemas = {
   dragShema,
   createShema,
   editShema,
   createTaskShema,
+  editTaskShema,
 };
 
 module.exports = { Column, shemas };
