@@ -67,6 +67,7 @@ const editShema = Joi.object({
   name: Joi.string().required(),
   email: Joi.string().required(),
   password: Joi.string(),
+  avatar: Joi.string(),
 });
 
 const updateThemeSchema = Joi.object({

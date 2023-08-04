@@ -15,11 +15,10 @@ router.get("/current", Authenticate, ctrl.current);
 router.patch(
   "/edit",
   Authenticate,
+  upload.single("avatar"),
   validateBody(shema.editShema),
   ctrl.editUser
 );
-
-router.patch("/avatars", Authenticate, upload.single("avatar"), ctrl.avatars);
 
 router.post("/verify", validateBody(shema.verifyShema), ctrl.verify);
 
