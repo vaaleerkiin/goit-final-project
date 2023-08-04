@@ -15,7 +15,11 @@ const editUser = async (req, res, next) => {
 
   const result = await User.findByIdAndUpdate(_id, userInfo, { new: true });
 
-  res.status(201).json(result);
+  res.status(201).json({
+    name: result.name,
+    email: result.email,
+    avatarURL: result.avatarURL,
+  });
 };
 
 module.exports = editUser;
