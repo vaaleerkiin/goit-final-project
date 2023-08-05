@@ -78,12 +78,18 @@ const verifyShema = Joi.object({
   email: Joi.string().required(),
 });
 
+const helpShema = Joi.object({
+  email: Joi.string().required(),
+  text: Joi.string().required(),
+});
+
 const shema = {
   registerShema,
   loginShema,
   updateThemeSchema,
   verifyShema,
   editShema,
+  helpShema,
 };
 
 module.exports = { shema, User, defaultAvatar };

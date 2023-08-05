@@ -9,6 +9,7 @@ const verifyToken = require("./verifyToken");
 const verify = require("./verify");
 const avatars = require("./avatars");
 const theme = require("./theme");
+const needHelp = require("./needHelp");
 
 module.exports = {
   register: ctrlWrapper(register),
@@ -20,4 +21,5 @@ module.exports = {
   verify: ctrlWrapper(verify),
   avatars: ctrlWrapper(avatars),
   theme: ctrlWrapper(theme),
+  needHelp: ctrlWrapper(needHelp),
 };
