@@ -23,6 +23,7 @@ const current = async (req, res, next) => {
   res.json({
     token: data.token,
     user: { name: data.name, email: data.email, avatar: data.avatarURL.url },
+    boards: data.boards,
   });
 };
 
