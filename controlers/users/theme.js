@@ -9,7 +9,7 @@ const theme = async (req, res, next) => {
     throw HttpError(404, "Not found");
   }
 
-  res.json(result);
+  res.json({ theme: result.theme });
 };
 
 module.exports = theme;
