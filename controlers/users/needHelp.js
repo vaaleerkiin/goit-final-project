@@ -10,7 +10,7 @@ const needHelp = async (req, res, next) => {
     text: "Tech Support",
     html: mailMurkup(text, email),
   });
-  res.status(201).json("ok");
+  res.status(201).json({ message: "letter sent" });
 };
 
 module.exports = needHelp;
