@@ -31,11 +31,6 @@ router.patch(
   ctrl.theme
 );
 
-router.post(
-  "/help",
-  Authenticate,
-  validateBody(shema.helpShema),
-  ctrl.needHelp
-);
+router.post("/help", validateBody(shema.helpShema), ctrl.needHelp);
 
 module.exports = router;
