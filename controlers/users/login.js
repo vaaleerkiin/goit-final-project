@@ -24,15 +24,29 @@ const login = async (req, res, next) => {
 
   const token = jwt.sign(payload, SECRET, { expiresIn: "23h" });
   await User.findByIdAndUpdate(user._id, { token });
-
-  res.status(201).json({
-    token,
-    user: {
-      name: user.name,
-      email: user.email,
-      avatar: user.avatarURL.url,
+  const result = await User.aggregate([
+    {
+      $match: {
+        _id: user._id,
+      },
     },
-    theme: user.theme,
+    {
+      $lookup: {
+        from: "boards",
+        localField: "_id",
+        foreignField: "owner",
+        as: "boards",
+      },
+    },
+  ]);
+
+  delete result[0].password;
+  const [data] = result;
+  res.json({
+    token: data.token,
+    user: { name: data.name, email: data.email, avatar: data.avatarURL.url },
+    boards: data.boards,
+    theme: data.theme,
   });
 };
 
