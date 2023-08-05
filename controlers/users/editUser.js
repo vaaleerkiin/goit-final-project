@@ -1,3 +1,4 @@
+const fs = require("fs/promises");
 const CryptoJS = require("crypto-js");
 const { User, defaultAvatar } = require("../../models/user");
 const { uploadImage, deleteImage } = require("../../services");
@@ -17,7 +18,7 @@ const editUser = async (req, res, next) => {
     const { path: tempUpload } = req.file;
 
     const url = await uploadImage(tempUpload);
-
+    await fs.unlink(tempUpload);
     if (
       avatarURL.url !== defaultAvatar &&
       avatarURL.asset_id !== url.asset_id
