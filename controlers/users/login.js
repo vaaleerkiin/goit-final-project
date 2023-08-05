@@ -32,6 +32,7 @@ const login = async (req, res, next) => {
       email: user.email,
       avatar: user.avatarURL.url,
     },
+    theme: user.theme,
   });
 };
 
