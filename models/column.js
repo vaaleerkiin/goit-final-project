@@ -44,18 +44,14 @@ const editShema = Joi.object({
 const createTaskShema = Joi.object({
   title: Joi.string().required(),
   description: Joi.string().required(),
-  labelColor: Joi.string()
-    .valid("Without priority", "Low", "Medium", "High")
-    .required(),
+  labelColor: Joi.string().valid("without", "low", "medium", "high").required(),
   deadLine: Joi.date().required(),
 });
 
 const editTaskShema = Joi.object({
   title: Joi.string().required(),
   description: Joi.string().required(),
-  labelColor: Joi.string()
-    .valid("Without priority", "Low", "Medium", "High")
-    .required(),
+  labelColor: Joi.string().valid("without", "low", "medium", "high").required(),
   deadLine: Joi.date().required(),
 });
 
