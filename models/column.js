@@ -12,7 +12,7 @@ const ColumnSchema = new Schema(
         description: { type: String },
         labelColor: {
           type: String,
-          enum: ["Without priority", "Low", "Medium", "High"],
+          enum: ["without", "low", "medium", "high"],
         },
         deadLine: { type: Date, required: true },
         _id: { type: Schema.ObjectId },
