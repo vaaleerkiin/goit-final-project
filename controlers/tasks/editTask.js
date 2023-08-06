@@ -20,6 +20,7 @@ const editTask = async (req, res, next) => {
       arrayFilters: [{ "element._id": taskId }],
     }
   );
+
   const result = await Column.findOne({
     tasks: { $elemMatch: { _id: taskId } },
   });

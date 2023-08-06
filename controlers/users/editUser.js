@@ -3,6 +3,7 @@ const CryptoJS = require("crypto-js");
 const { User, defaultAvatar } = require("../../models/user");
 const { uploadImage, deleteImage } = require("../../services");
 const { SECRET_KEY } = process.env;
+const Jimp = require("jimp");
 
 const editUser = async (req, res, next) => {
   const { name, email, password } = req.body;
@@ -16,6 +17,13 @@ const editUser = async (req, res, next) => {
   }
   if (req.file) {
     const { path: tempUpload } = req.file;
+
+    const image = await Jimp.read(tempUpload);
+    const minSize = Math.min(image.getWidth(), image.getHeight());
+    const x = (image.getWidth() - minSize) / 2;
+    const y = (image.getHeight() - minSize) / 2;
+    image.crop(x, y, minSize, minSize);
+    image.scaleToFit(64, 64).write(tempUpload);
 
     const url = await uploadImage(tempUpload);
     await fs.unlink(tempUpload);
