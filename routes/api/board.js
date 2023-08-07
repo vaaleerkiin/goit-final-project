@@ -4,6 +4,7 @@ const { validateBody, Authenticate, isValidId } = require("../../middlewares");
 const { shemas } = require("../../models/board");
 
 const router = express.Router();
+router.get("/", Authenticate, ctrl.getBoards);
 
 router.get("/:boardId", Authenticate, ctrl.getById);
 
