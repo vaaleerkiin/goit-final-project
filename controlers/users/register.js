@@ -1,5 +1,4 @@
 const { HttpError } = require("../../helpers");
-// const { sendMail } = require("../../services");
 const { User } = require("../../models/user");
 const CryptoJS = require("crypto-js");
 const { v4: uuidv4 } = require("uuid");
@@ -18,13 +17,6 @@ const register = async (req, res, next) => {
     password: hashPass,
     verificationToken,
   });
-
-  // await sendMail({
-  //   to: email,
-  //   subject: "Verify email",
-  //   html: mailMurkup(verificationToken),
-  //   text: "Verify email",
-  // });
 
   res.status(201).json({ user: { name, email } });
 };
