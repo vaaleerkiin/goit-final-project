@@ -3,12 +3,17 @@ const { Column } = require("../../models/column");
 
 const deleteColumn = async (req, res, next) => {
   const { columnId } = req.params;
-  const data = await Column.findById(columnId);
-  if (data.tasks.length !== 0) {
-    throw HttpError(400, "The column must be empty");
+
+  const result = await Column.findOneAndDelete({
+    _id: columnId,
+    tasks: { $size: 0 },
+  });
+
+  if (!result) {
+    throw HttpError(404, "The column must be empty");
   }
-  const result = await Column.findByIdAndDelete(columnId);
-  res.status(201).json(result);
+
+  res.status(201).json({ message: "column deleted" });
 };
 
 module.exports = deleteColumn;

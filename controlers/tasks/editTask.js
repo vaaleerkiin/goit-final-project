@@ -4,7 +4,7 @@ const editTask = async (req, res, next) => {
   const { taskId } = req.params;
 
   const { title, description, labelColor, deadLine } = req.body;
-  await Column.updateOne(
+  const column = await Column.findOneAndUpdate(
     {
       tasks: { $elemMatch: { _id: taskId } },
     },
@@ -20,10 +20,6 @@ const editTask = async (req, res, next) => {
       arrayFilters: [{ "element._id": taskId }],
     }
   );
-
-  const column = await Column.findOne({
-    tasks: { $elemMatch: { _id: taskId } },
-  });
 
   res.status(201).json({
     title,
