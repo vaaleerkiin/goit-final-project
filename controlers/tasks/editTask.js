@@ -21,11 +21,9 @@ const editTask = async (req, res, next) => {
     }
   );
 
-  const result = await Column.findOne({
-    tasks: { $elemMatch: { _id: taskId } },
-  });
-
-  res.status(201).json(result);
+  res
+    .status(201)
+    .json({ title, description, labelColor, deadLine, _id: taskId });
 };
 
 module.exports = editTask;

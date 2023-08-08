@@ -8,9 +8,9 @@ const deleteTask = async (req, res, next) => {
   });
   const tasks = data.tasks.filter(({ _id }) => _id.toString() !== taskId);
 
-  const result = await Column.findByIdAndUpdate(data._id, { tasks });
+  await Column.findByIdAndUpdate(data._id, { tasks });
 
-  res.status(200).json(result);
+  res.status(204).send();
 };
 
 module.exports = deleteTask;

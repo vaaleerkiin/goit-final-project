@@ -2,12 +2,14 @@ const { Column } = require("../../models/column");
 const { ObjectId } = require("mongodb");
 const createTask = async (req, res, next) => {
   const { columnId } = req.params;
-  const result = await Column.findByIdAndUpdate(
+  const task = { ...req.body, _id: new ObjectId() };
+
+  await Column.findByIdAndUpdate(
     columnId,
-    { $push: { tasks: { ...req.body, _id: new ObjectId() } } },
+    { $push: { tasks: task } },
     { new: true }
   );
-  res.status(201).json(result);
+  res.status(201).json(task);
 };
 
 module.exports = createTask;
