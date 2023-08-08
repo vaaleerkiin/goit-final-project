@@ -9,7 +9,7 @@ const createTask = async (req, res, next) => {
     { $push: { tasks: task } },
     { new: true }
   );
-  res.status(201).json(task);
+  res.status(201).json({ ...task, columnId });
 };
 
 module.exports = createTask;

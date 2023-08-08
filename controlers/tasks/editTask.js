@@ -21,9 +21,18 @@ const editTask = async (req, res, next) => {
     }
   );
 
-  res
-    .status(201)
-    .json({ title, description, labelColor, deadLine, _id: taskId });
+  const column = await Column.findOne({
+    tasks: { $elemMatch: { _id: taskId } },
+  });
+
+  res.status(201).json({
+    title,
+    description,
+    labelColor,
+    deadLine,
+    _id: taskId,
+    columnId: column._id,
+  });
 };
 
 module.exports = editTask;
