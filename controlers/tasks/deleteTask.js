@@ -10,7 +10,7 @@ const deleteTask = async (req, res, next) => {
 
   await Column.findByIdAndUpdate(data._id, { tasks });
 
-  res.status(204).send();
+  res.status(200).json({ message: "task deleted" });
 };
 
 module.exports = deleteTask;
