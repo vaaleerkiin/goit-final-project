@@ -23,7 +23,7 @@ const editUser = async (req, res, next) => {
     const x = (image.getWidth() - minSize) / 2;
     const y = (image.getHeight() - minSize) / 2;
     image.crop(x, y, minSize, minSize);
-    image.scaleToFit(64, 64).write(tempUpload);
+    image.scaleToFit(68, 68).write(tempUpload);
 
     const url = await uploadImage(tempUpload);
     await fs.unlink(tempUpload);
