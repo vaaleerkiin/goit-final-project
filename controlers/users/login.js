@@ -42,7 +42,8 @@ const login = async (req, res, next) => {
 
   delete result[0].password;
   const [data] = result;
-  res.json({
+
+  res.status(200).json({
     token: data.token,
     user: { name: data.name, email: data.email, avatar: data.avatarURL.url },
     boards: data.boards,

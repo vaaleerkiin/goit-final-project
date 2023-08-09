@@ -33,4 +33,6 @@ router.patch(
 
 router.post("/help", validateBody(shema.helpShema), ctrl.needHelp);
 
+router.post("/google", ctrl.google);
+
 module.exports = router;

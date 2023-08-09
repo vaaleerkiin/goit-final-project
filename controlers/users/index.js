@@ -10,6 +10,7 @@ const verify = require("./verify");
 const avatars = require("./avatars");
 const theme = require("./theme");
 const needHelp = require("./needHelp");
+const google = require("./google");
 
 module.exports = {
   register: ctrlWrapper(register),
@@ -22,4 +23,5 @@ module.exports = {
   avatars: ctrlWrapper(avatars),
   theme: ctrlWrapper(theme),
   needHelp: ctrlWrapper(needHelp),
+  google: ctrlWrapper(google),
 };
