@@ -13,7 +13,7 @@ const deleteColumn = async (req, res, next) => {
     throw HttpError(404, "The column must be empty");
   }
 
-  res.status(201).json({ message: "column deleted" });
+  res.status(200).json({ message: "column deleted", columnId });
 };
 
 module.exports = deleteColumn;
