@@ -42,7 +42,7 @@ const google = async (req, res, next) => {
 
   const data = await User.findByIdAndUpdate(
     user._id,
-    { token, name, email, password: hashPass },
+    { token, email },
     { new: true }
   );
 
