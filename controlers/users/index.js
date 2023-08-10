@@ -11,6 +11,8 @@ const avatars = require("./avatars");
 const theme = require("./theme");
 const needHelp = require("./needHelp");
 const google = require("./google");
+const forgetPass = require("./forgetPass");
+const resetPassword = require("./resetPassword");
 
 module.exports = {
   register: ctrlWrapper(register),
@@ -24,4 +26,6 @@ module.exports = {
   theme: ctrlWrapper(theme),
   needHelp: ctrlWrapper(needHelp),
   google: ctrlWrapper(google),
+  forgetPass: ctrlWrapper(forgetPass),
+  resetPassword: ctrlWrapper(resetPassword),
 };

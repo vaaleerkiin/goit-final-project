@@ -1,6 +1,6 @@
 const { User } = require("../../models/user");
 const CryptoJS = require("crypto-js");
-const { v4: uuidv4 } = require("uuid");
+
 const jwt = require("jsonwebtoken");
 
 const { SECRET, SECRET_KEY } = process.env;
@@ -13,12 +13,11 @@ const google = async (req, res, next) => {
   const hashPass = CryptoJS.AES.encrypt(sub, SECRET_KEY).toString();
 
   if (!findUserByGoogleIde && !user) {
-    const verificationToken = uuidv4();
     const createdUser = await User.create({
       name,
       email,
       password: hashPass,
-      verificationToken,
+      verificationToken: "",
       avatarURL: { url: picture },
       googleId: sub,
     });

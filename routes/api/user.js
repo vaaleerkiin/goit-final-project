@@ -22,6 +22,18 @@ router.patch(
 
 router.post("/verify", validateBody(shema.verifyShema), ctrl.verify);
 
+router.post(
+  "/forgetpassword",
+  validateBody(shema.verifyShema),
+  ctrl.forgetPass
+);
+
+router.post(
+  "/resetpassword/:verificationToken",
+  validateBody(shema.resetShema),
+  ctrl.resetPassword
+);
+
 router.get("/verify/:verificationToken", ctrl.verifyToken);
 
 router.patch(

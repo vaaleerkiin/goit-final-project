@@ -40,7 +40,7 @@ const userSchema = new Schema(
     },
     verificationToken: {
       type: String,
-      required: [true, "Verify token is required"],
+      default: "",
     },
     boards: { type: Array, default: [] },
     theme: {
@@ -81,6 +81,10 @@ const verifyShema = Joi.object({
   email: Joi.string().required(),
 });
 
+const resetShema = Joi.object({
+  password: Joi.string().required(),
+});
+
 const helpShema = Joi.object({
   email: Joi.string().required(),
   text: Joi.string().required(),
@@ -93,6 +97,7 @@ const shema = {
   verifyShema,
   editShema,
   helpShema,
+  resetShema,
 };
 
 module.exports = { shema, User, defaultAvatar };
