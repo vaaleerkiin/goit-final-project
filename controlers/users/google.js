@@ -2,11 +2,21 @@ const { User } = require("../../models/user");
 const CryptoJS = require("crypto-js");
 
 const jwt = require("jsonwebtoken");
+const { default: axios } = require("axios");
 
 const { SECRET, SECRET_KEY } = process.env;
 
 const google = async (req, res, next) => {
-  const { email, name, sub, picture } = req.body;
+  const { tokenResponse } = req.body;
+
+  const userInfo = await axios
+    .get("https://www.googleapis.com/oauth2/v3/userinfo", {
+      headers: { Authorization: `Bearer ${tokenResponse.access_token}` },
+    })
+    .then((res) => res.data);
+
+  const { email, name, sub, picture } = userInfo;
+
   const user = await User.findOne({ email });
   const findUserByGoogleIde = await User.findOne({ googleId: sub });
 
