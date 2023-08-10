@@ -8,9 +8,11 @@ const { SECRET, SECRET_KEY } = process.env;
 const google = async (req, res, next) => {
   const { email, name, sub, picture } = req.body;
   const user = await User.findOne({ email });
+  const findUserByGoogleIde = await User.findOne({ googleId: sub });
+
   const hashPass = CryptoJS.AES.encrypt(sub, SECRET_KEY).toString();
 
-  if (!user) {
+  if (!findUserByGoogleIde && !user) {
     const verificationToken = uuidv4();
     const createdUser = await User.create({
       name,
@@ -18,6 +20,7 @@ const google = async (req, res, next) => {
       password: hashPass,
       verificationToken,
       avatarURL: { url: picture },
+      googleId: sub,
     });
     const payload = { id: createdUser._id };
 
@@ -25,7 +28,9 @@ const google = async (req, res, next) => {
 
     const data = await User.findByIdAndUpdate(
       createdUser._id,
-      { token, avatarURL: { url: picture }, name, email, password: hashPass },
+      {
+        token,
+      },
       { new: true }
     );
 
@@ -36,13 +41,33 @@ const google = async (req, res, next) => {
       theme: data.theme,
     });
   }
-  const payload = { id: user._id };
+
+  if (!findUserByGoogleIde && user) {
+    const payload = { id: user._id };
+
+    const token = jwt.sign(payload, SECRET, { expiresIn: "23h" });
+
+    const data = await User.findByIdAndUpdate(
+      user._id,
+      { token, email, googleId: sub },
+      { new: true }
+    );
+
+    res.status(200).json({
+      token: data.token,
+      user: { name: data.name, email: data.email, avatar: data.avatarURL.url },
+      boards: data.boards,
+      theme: data.theme,
+    });
+  }
+
+  const payload = { id: findUserByGoogleIde._id };
 
   const token = jwt.sign(payload, SECRET, { expiresIn: "23h" });
 
   const data = await User.findByIdAndUpdate(
-    user._id,
-    { token, email },
+    findUserByGoogleIde._id,
+    { token },
     { new: true }
   );
 

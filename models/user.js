@@ -35,6 +35,9 @@ const userSchema = new Schema(
       type: Boolean,
       default: false,
     },
+    googleId: {
+      type: String,
+    },
     verificationToken: {
       type: String,
       required: [true, "Verify token is required"],
