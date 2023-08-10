@@ -13,12 +13,7 @@ const app = express();
 const formatsLogger = app.get("env") === "development" ? "dev" : "short";
 
 app.use(logger(formatsLogger));
-app.use(
-  cors({
-    origin: ["http://localhost:3000", "https://torn80beta.github.io/"],
-    // origin: "https://torn80beta.github.io/",
-  })
-);
+app.use(cors());
 app.use(express.json());
 
 app.use("/api/users", usersRouter);
