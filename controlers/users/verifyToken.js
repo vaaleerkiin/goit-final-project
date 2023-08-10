@@ -1,10 +1,9 @@
-const { HttpError } = require("../../helpers");
 const { User } = require("../../models/user");
 
 const verifyToken = async (req, res, next) => {
   const { verificationToken } = req.params;
   const user = await User.findOne({ verificationToken });
-  console.log(user);
+
   if (!user) {
     res.status(404).send(`
 <!DOCTYPE html>
