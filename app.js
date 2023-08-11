@@ -2,6 +2,7 @@ const express = require("express");
 const logger = require("morgan");
 const cors = require("cors");
 require("dotenv").config();
+const session = require("express-session");
 
 const usersRouter = require("./routes/api/user");
 const boardRouter = require("./routes/api/board");
@@ -15,6 +16,13 @@ const formatsLogger = app.get("env") === "development" ? "dev" : "short";
 app.use(logger(formatsLogger));
 app.use(cors());
 app.use(express.json());
+app.use(
+  session({
+    secret: "secret",
+    resave: false,
+    saveUninitialized: true,
+  })
+);
 
 app.use("/api/users", usersRouter);
 app.use("/api/boards", boardRouter);

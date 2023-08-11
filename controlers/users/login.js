@@ -2,7 +2,7 @@ const { HttpError } = require("../../helpers");
 const { User } = require("../../models/user");
 const CryptoJS = require("crypto-js");
 const jwt = require("jsonwebtoken");
-const { SECRET, SECRET_KEY } = process.env;
+const { ACCESS_SECRET_KEY, SECRET_KEY } = process.env;
 
 const login = async (req, res, next) => {
   const { email, password } = req.body;
@@ -22,7 +22,7 @@ const login = async (req, res, next) => {
   }
   const payload = { id: user._id };
 
-  const token = jwt.sign(payload, SECRET, { expiresIn: "23h" });
+  const token = jwt.sign(payload, ACCESS_SECRET_KEY, { expiresIn: "23h" });
   await User.findByIdAndUpdate(user._id, { token });
   const result = await User.aggregate([
     {

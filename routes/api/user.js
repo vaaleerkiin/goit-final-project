@@ -1,8 +1,15 @@
 const express = require("express");
 const { shema } = require("../../models/user");
 const ctrl = require("../../controlers/users");
-const { validateBody, Authenticate, upload } = require("../../middlewares");
+const {
+  validateBody,
+  Authenticate,
+  upload,
+  passport,
+} = require("../../middlewares");
 const router = express.Router();
+
+const { CLIENT_URL } = process.env;
 
 router.post("/register", validateBody(shema.registerShema), ctrl.register);
 
@@ -45,6 +52,18 @@ router.patch(
 
 router.post("/help", validateBody(shema.helpShema), ctrl.needHelp);
 
-router.post("/google", ctrl.google);
+router.get(
+  "/google",
+  passport.authenticate("google", { scope: ["email", "profile"] })
+);
+
+router.get(
+  "/google/callback",
+  passport.authenticate("google", {
+    session: false,
+    failureRedirect: `${CLIENT_URL}/project-magic-task-manager/welcome`,
+  }),
+  ctrl.google
+);
 
 module.exports = router;
