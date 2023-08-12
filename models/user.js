@@ -17,7 +17,11 @@ const userSchema = new Schema(
       required: [true, "Email is required"],
       unique: true,
     },
-    token: {
+    accessToken: {
+      type: String,
+      default: null,
+    },
+    refreshToken: {
       type: String,
       default: null,
     },
@@ -90,6 +94,10 @@ const helpShema = Joi.object({
   text: Joi.string().required(),
 });
 
+const refreshSchema = Joi.object({
+  refreshToken: Joi.string().required(),
+});
+
 const shema = {
   registerShema,
   loginShema,
@@ -98,6 +106,7 @@ const shema = {
   editShema,
   helpShema,
   resetShema,
+  refreshSchema,
 };
 
 module.exports = { shema, User, defaultAvatar };

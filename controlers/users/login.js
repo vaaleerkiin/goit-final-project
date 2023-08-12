@@ -2,7 +2,7 @@ const { HttpError } = require("../../helpers");
 const { User } = require("../../models/user");
 const CryptoJS = require("crypto-js");
 const jwt = require("jsonwebtoken");
-const { ACCESS_SECRET_KEY, SECRET_KEY } = process.env;
+const { ACCESS_SECRET_KEY, REFRESH_SECRET_KEY, SECRET_KEY } = process.env;
 
 const login = async (req, res, next) => {
   const { email, password } = req.body;
@@ -22,8 +22,13 @@ const login = async (req, res, next) => {
   }
   const payload = { id: user._id };
 
-  const token = jwt.sign(payload, ACCESS_SECRET_KEY, { expiresIn: "23h" });
-  await User.findByIdAndUpdate(user._id, { token });
+  const accessToken = jwt.sign(payload, ACCESS_SECRET_KEY, {
+    expiresIn: "2m",
+  });
+  const refreshToken = jwt.sign(payload, REFRESH_SECRET_KEY, {
+    expiresIn: "7d",
+  });
+  await User.findByIdAndUpdate(user._id, { accessToken, refreshToken });
   const result = await User.aggregate([
     {
       $match: {
@@ -44,7 +49,8 @@ const login = async (req, res, next) => {
   const [data] = result;
 
   res.status(200).json({
-    token: data.token,
+    accessToken: data.accessToken,
+    refreshToken: data.refreshToken,
     user: { name: data.name, email: data.email, avatar: data.avatarURL.url },
     boards: data.boards,
     theme: data.theme,
