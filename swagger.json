@@ -1,0 +1,984 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "GOIT final project",
+    "version": "1.0.0"
+  },
+  "servers": [
+    {
+      "url": "https://goit-final-project.onrender.com",
+      "description": "API base URL"
+    },
+    {
+      "url": "https://github.com/vaaleerkiin/goit-final-project",
+      "description": "github"
+    }
+  ],
+  "paths": {
+    "/api/users/register": {
+      "post": {
+        "tags": ["User"],
+        "summary": "register",
+        "operationId": "register",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Registration"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "User created"
+          },
+          "400": {
+            "description": "User creation error"
+          },
+          "500": {
+            "description": "Server error"
+          }
+        }
+      }
+    },
+    "/api/users/login": {
+      "post": {
+        "tags": ["User"],
+        "summary": "login",
+        "operationId": "login",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Login"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "User is logged in"
+          },
+          "400": {
+            "description": "Login error"
+          },
+          "500": {
+            "description": "Server error"
+          }
+        }
+      }
+    },
+    "/api/users/logout": {
+      "post": {
+        "tags": ["User"],
+        "summary": "logout",
+        "operationId": "logout",
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": true,
+            "style": "simple",
+            "explode": false,
+            "schema": {
+              "type": "string",
+              "example": "Authorization - The token issued to the current user."
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The user is logged out"
+          },
+          "401": {
+            "description": "Missing header with authorization token"
+          },
+          "500": {
+            "description": "Server error"
+          }
+        }
+      }
+    },
+    "/api/users/current": {
+      "get": {
+        "tags": ["User"],
+        "summary": "get currnet user",
+        "operationId": "current",
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": true,
+            "style": "simple",
+            "explode": false,
+            "schema": {
+              "type": "string",
+              "example": "Authorization - The token issued to the current user."
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "User edited"
+          },
+          "401": {
+            "description": "Missing header with authorization token"
+          },
+          "500": {
+            "description": "Server error"
+          }
+        }
+      }
+    },
+    "/api/users/edit": {
+      "patch": {
+        "tags": ["User"],
+        "summary": "edit user",
+        "operationId": "edit",
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": true,
+            "style": "simple",
+            "explode": false,
+            "schema": {
+              "type": "string",
+              "example": "Authorization - The token issued to the current user."
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "$ref": "#/components/schemas/Edit"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Avatar edited"
+          },
+          "401": {
+            "description": "Missing header with authorization token"
+          },
+          "500": {
+            "description": "Server error"
+          }
+        }
+      }
+    },
+    "/api/users/theme": {
+      "patch": {
+        "tags": ["User"],
+        "summary": "edit theme",
+        "operationId": "theme",
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": true,
+            "style": "simple",
+            "explode": false,
+            "schema": {
+              "type": "string",
+              "example": "Authorization - The token issued to the current user."
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Theme"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Theme changed."
+          },
+          "401": {
+            "description": "Missing header with authorization token"
+          },
+          "500": {
+            "description": "Server error"
+          }
+        }
+      }
+    },
+    "/api/users/help": {
+      "post": {
+        "tags": ["User"],
+        "summary": "help",
+        "operationId": "help",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Help"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "letter sent"
+          },
+          "401": {
+            "description": "Missing header with authorization token"
+          },
+          "500": {
+            "description": "Server error"
+          }
+        }
+      }
+    },
+    "/api/boards": {
+      "get": {
+        "tags": ["Board"],
+        "summary": "get boards",
+        "operationId": "Get boards",
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": true,
+            "style": "simple",
+            "explode": false,
+            "schema": {
+              "type": "string",
+              "example": "Authorization - The token issued to the current user."
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "User created"
+          },
+          "401": {
+            "description": "Missing header with authorization token"
+          },
+          "500": {
+            "description": "Server error"
+          }
+        }
+      },
+      "post": {
+        "tags": ["Board"],
+        "summary": "create board",
+        "operationId": "Create board",
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": true,
+            "style": "simple",
+            "explode": false,
+            "schema": {
+              "type": "string",
+              "example": "Authorization - The token issued to the current user."
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateBoard"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "User created"
+          },
+          "401": {
+            "description": "Missing header with authorization token"
+          },
+          "500": {
+            "description": "Server error"
+          }
+        }
+      }
+    },
+    "/api/boards/{boardId}": {
+      "get": {
+        "tags": ["Board"],
+        "summary": "get board by id",
+        "operationId": "Get board by id",
+        "parameters": [
+          {
+            "name": "boardId",
+            "in": "path",
+            "required": true,
+            "style": "simple",
+            "explode": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": true,
+            "style": "simple",
+            "explode": false,
+            "schema": {
+              "type": "string",
+              "example": "Authorization - The token issued to the current user."
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "email sended"
+          },
+          "401": {
+            "description": "Missing header with authorization token"
+          },
+          "500": {
+            "description": "Server error"
+          }
+        }
+      },
+      "delete": {
+        "tags": ["Board"],
+        "summary": "delete board",
+        "operationId": "Delete board",
+        "parameters": [
+          {
+            "name": "boardId",
+            "in": "path",
+            "required": true,
+            "style": "simple",
+            "explode": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": true,
+            "style": "simple",
+            "explode": false,
+            "schema": {
+              "type": "string",
+              "example": "Authorization - The token issued to the current user."
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "User created"
+          },
+          "401": {
+            "description": "Missing header with authorization token"
+          },
+          "500": {
+            "description": "Server error"
+          }
+        }
+      },
+      "patch": {
+        "tags": ["Board"],
+        "summary": "edit board",
+        "operationId": "Edit board",
+        "parameters": [
+          {
+            "name": "boardId",
+            "in": "path",
+            "required": true,
+            "style": "simple",
+            "explode": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": true,
+            "style": "simple",
+            "explode": false,
+            "schema": {
+              "type": "string",
+              "example": "Authorization - The token issued to the current user."
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/EditBoard"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "User created"
+          },
+          "401": {
+            "description": "Missing header with authorization token"
+          },
+          "500": {
+            "description": "Server error"
+          }
+        }
+      }
+    },
+    "/api/columns/{boardId}": {
+      "post": {
+        "tags": ["Column"],
+        "summary": "create column",
+        "operationId": "Create Column",
+        "parameters": [
+          {
+            "name": "boardId",
+            "in": "path",
+            "required": true,
+            "style": "simple",
+            "explode": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": true,
+            "style": "simple",
+            "explode": false,
+            "schema": {
+              "type": "string",
+              "example": "Authorization - The token issued to the current user."
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateColumn"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "User created"
+          },
+          "401": {
+            "description": "Missing header with authorization token"
+          },
+          "500": {
+            "description": "Server error"
+          }
+        }
+      }
+    },
+    "/api/columns/{columnId}": {
+      "delete": {
+        "tags": ["Column"],
+        "summary": "delete column",
+        "operationId": "Delete Column",
+        "parameters": [
+          {
+            "name": "columnId",
+            "in": "path",
+            "required": true,
+            "style": "simple",
+            "explode": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": true,
+            "style": "simple",
+            "explode": false,
+            "schema": {
+              "type": "string",
+              "example": "Authorization - The token issued to the current user."
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "User created"
+          },
+          "401": {
+            "description": "Missing header with authorization token"
+          },
+          "500": {
+            "description": "Server error"
+          }
+        }
+      },
+      "patch": {
+        "tags": ["Column"],
+        "summary": "edit column",
+        "operationId": "Edit column",
+        "parameters": [
+          {
+            "name": "columnId",
+            "in": "path",
+            "required": true,
+            "style": "simple",
+            "explode": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": true,
+            "style": "simple",
+            "explode": false,
+            "schema": {
+              "type": "string",
+              "example": "Authorization - The token issued to the current user."
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/EditColumn"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "User created"
+          },
+          "401": {
+            "description": "Missing header with authorization token"
+          },
+          "500": {
+            "description": "Server error"
+          }
+        }
+      }
+    },
+    "/api/tasks/{columnId}": {
+      "post": {
+        "tags": ["Tasks"],
+        "summary": "create task",
+        "operationId": "Create Tasks",
+        "parameters": [
+          {
+            "name": "columnId",
+            "in": "path",
+            "required": true,
+            "style": "simple",
+            "explode": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": true,
+            "style": "simple",
+            "explode": false,
+            "schema": {
+              "type": "string",
+              "example": "Authorization - The token issued to the current user."
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateTask"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "User created"
+          },
+          "401": {
+            "description": "Missing header with authorization token"
+          },
+          "500": {
+            "description": "Server error"
+          }
+        }
+      }
+    },
+    "/api/tasks/{taskId}": {
+      "delete": {
+        "tags": ["Tasks"],
+        "summary": "delete task",
+        "operationId": "Delete Tasks",
+        "parameters": [
+          {
+            "name": "taskId",
+            "in": "path",
+            "required": true,
+            "style": "simple",
+            "explode": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": true,
+            "style": "simple",
+            "explode": false,
+            "schema": {
+              "type": "string",
+              "example": "Authorization - The token issued to the current user."
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "User created"
+          },
+          "401": {
+            "description": "Missing header with authorization token"
+          },
+          "500": {
+            "description": "Server error"
+          }
+        }
+      },
+      "patch": {
+        "tags": ["Tasks"],
+        "summary": "edit task",
+        "operationId": "Edit Tasks",
+        "parameters": [
+          {
+            "name": "taskId",
+            "in": "path",
+            "required": true,
+            "style": "simple",
+            "explode": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": true,
+            "style": "simple",
+            "explode": false,
+            "schema": {
+              "type": "string",
+              "example": "Authorization - The token issued to the current user."
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/EditTask"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "User created"
+          },
+          "401": {
+            "description": "Missing header with authorization token"
+          },
+          "500": {
+            "description": "Server error"
+          }
+        }
+      }
+    },
+    "/api/tasks/dragTask/{taskId}": {
+      "patch": {
+        "tags": ["Tasks"],
+        "summary": "drag task",
+        "operationId": "Drag Tasks",
+        "parameters": [
+          {
+            "name": "taskId",
+            "in": "path",
+            "required": true,
+            "style": "simple",
+            "explode": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": true,
+            "style": "simple",
+            "explode": false,
+            "schema": {
+              "type": "string",
+              "example": "Authorization - The token issued to the current user."
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/DragTask"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "User created"
+          },
+          "401": {
+            "description": "Missing header with authorization token"
+          },
+          "500": {
+            "description": "Server error"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "Registration": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "format": "name",
+            "example": "exaple"
+          },
+          "email": {
+            "type": "string",
+            "format": "mail",
+            "example": "exaple@gmail.com"
+          },
+          "password": {
+            "type": "string",
+            "format": "uuid",
+            "example": "0729a580-2240-11e6-9eb5-0002a5d5c51b"
+          }
+        }
+      },
+      "Login": {
+        "type": "object",
+        "properties": {
+          "email": {
+            "type": "string",
+            "format": "mail",
+            "example": "exaple@gmail.com"
+          },
+          "password": {
+            "type": "string",
+            "format": "uuid",
+            "example": "0729a580-2240-11e6-9eb5-0002a5d5c51b"
+          }
+        }
+      },
+      "Help": {
+        "type": "object",
+        "properties": {
+          "email": {
+            "type": "string",
+            "format": "mail",
+            "example": "exaple@gmail.com"
+          },
+          "text": {
+            "type": "string",
+            "format": "uuid"
+          }
+        }
+      },
+      "Edit": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "format": "name",
+            "example": "exaple"
+          },
+          "email": {
+            "type": "string",
+            "format": "mail",
+            "example": "exaple@gmail.com"
+          },
+          "password": {
+            "type": "string",
+            "format": "uuid",
+            "example": "0729a580-2240-11e6-9eb5-0002a5d5c51b"
+          },
+          "avatar": {
+            "type": "string",
+            "format": "binary"
+          }
+        }
+      },
+      "CreateBoard": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "format": "string",
+            "example": "exaple"
+          },
+          "background": {
+            "type": "string",
+            "format": "string",
+            "example": "One of the [ bg-1, bg-2, bg-3, bg-4, bg-5, bg-6, bg-7, bg-8, bg-9, bg-10, bg-11, bg-12, bg-13, bg-14, bg-15, bg-16, bg-17, bg-18 ]"
+          },
+          "icon": {
+            "type": "string",
+            "format": "string",
+            "example": "One of the [icon-1, icon-2, icon-3, icon-4, icon-5, icon-6, icon-7, icon-8]"
+          }
+        }
+      },
+      "EditBoard": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "format": "string",
+            "example": "exaple"
+          },
+          "background": {
+            "type": "string",
+            "format": "string",
+            "example": "One of the [ bg-1, bg-2, bg-3, bg-4, bg-5, bg-6, bg-7, bg-8, bg-9, bg-10, bg-11, bg-12, bg-13, bg-14, bg-15, bg-16, bg-17, bg-18 ]"
+          },
+          "icon": {
+            "type": "string",
+            "format": "string",
+            "example": "One of the [icon-1, icon-2, icon-3, icon-4, icon-5, icon-6, icon-7, icon-8]"
+          }
+        }
+      },
+      "CreateColumn": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "format": "string",
+            "example": "exaple"
+          }
+        }
+      },
+      "EditColumn": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "format": "string",
+            "example": "exaple"
+          }
+        }
+      },
+      "EditTask": {
+        "type": "object",
+        "properties": {
+          "title": {
+            "type": "string",
+            "format": "string",
+            "example": "exaple"
+          },
+          "description": {
+            "type": "string",
+            "format": "string",
+            "example": "exaple exaple exaple exaple"
+          },
+          "labelColor": {
+            "type": "string",
+            "format": "string",
+            "example": "One of the [ without, low, medium, high]"
+          },
+          "deadLine": {
+            "type": "string",
+            "format": "string",
+            "example": "2023-08-03T17:01:27.257+00:00"
+          }
+        }
+      },
+      "CreateTask": {
+        "type": "object",
+        "properties": {
+          "title": {
+            "type": "string",
+            "format": "string",
+            "example": "exaple"
+          },
+          "description": {
+            "type": "string",
+            "format": "string",
+            "example": "exaple exaple exaple exaple"
+          },
+          "labelColor": {
+            "type": "string",
+            "format": "string",
+            "example": "One of the [ without, low, medium, high]"
+          },
+          "deadLine": {
+            "type": "string",
+            "format": "string",
+            "example": "2023-08-03T17:01:27.257+00:00"
+          }
+        }
+      },
+      "DragTask": {
+        "type": "object",
+        "properties": {
+          "columnId": {
+            "type": "string",
+            "format": "string",
+            "example": "0729a580-2240-11e6-9eb5-0002a5d5c51b"
+          },
+          "indexTo": {
+            "type": "number",
+            "format": "number",
+            "example": 0
+          },
+          "indexFrom": {
+            "type": "number",
+            "format": "number",
+            "example": 1
+          }
+        }
+      },
+      "Theme": {
+        "type": "object",
+        "properties": {
+          "theme": {
+            "type": "string",
+            "format": "string",
+            "example": "One of the [dark, light, violet]"
+          }
+        }
+      }
+    }
+  }
+}
