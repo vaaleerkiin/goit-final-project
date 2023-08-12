@@ -3,6 +3,8 @@ const logger = require("morgan");
 const cors = require("cors");
 require("dotenv").config();
 const session = require("express-session");
+const swaggerUi = require("swagger-ui-express");
+const swaggerDocument = require("./swagger.json");
 
 const usersRouter = require("./routes/api/user");
 const boardRouter = require("./routes/api/board");
@@ -23,7 +25,7 @@ app.use(
     saveUninitialized: true,
   })
 );
-
+app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 app.use("/api/users", usersRouter);
 app.use("/api/boards", boardRouter);
 app.use("/api/columns", columnRouter);
