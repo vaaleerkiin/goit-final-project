@@ -4,6 +4,7 @@ const { User, defaultAvatar } = require("../../models/user");
 const { uploadImage, deleteImage } = require("../../services");
 const { SECRET_KEY } = process.env;
 const Jimp = require("jimp");
+const { HttpError } = require("../../helpers");
 
 const editUser = async (req, res, next) => {
   const { name, email, password } = req.body;
@@ -12,9 +13,16 @@ const editUser = async (req, res, next) => {
     name,
     email,
   };
+
+  const user = await User.findOne({ email });
+  if (user) {
+    throw HttpError(409, "Email in use");
+  }
+
   if (password) {
     userInfo.password = CryptoJS.AES.encrypt(password, SECRET_KEY).toString();
   }
+
   if (req.file) {
     const { path: tempUpload } = req.file;
 
