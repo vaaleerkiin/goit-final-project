@@ -15,7 +15,8 @@ const editUser = async (req, res, next) => {
   };
 
   const user = await User.findOne({ email });
-  if (user) {
+
+  if (user && email !== req.user.email) {
     throw HttpError(409, "Email in use");
   }
 
