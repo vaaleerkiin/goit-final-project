@@ -1,9 +1,8 @@
 const { User } = require("../../models/user");
-const CryptoJS = require("crypto-js");
 
 const jwt = require("jsonwebtoken");
 
-const { SECRET, SECRET_KEY, CLIENT_URL, ACCESS_SECRET_KEY } = process.env;
+const { CLIENT_URL, ACCESS_SECRET_KEY } = process.env;
 
 const google = async (req, res, next) => {
   const payload = { id: req.user._id };
