@@ -1,13 +1,12 @@
 const { User } = require("../../models/user");
 
+const { CLIENT_URL } = process.env;
 const verifyToken = async (req, res, next) => {
   const { verificationToken } = req.params;
   const user = await User.findOne({ verificationToken });
 
   if (!user) {
-    res
-      .status(404)
-      .redirect("https://torn80beta.github.io/project-magic-task-manager/");
+    res.status(404).redirect(`${CLIENT_URL}/project-magic-task-manager/`);
   }
   await User.findByIdAndUpdate(user._id, {
     verify: true,
@@ -15,7 +14,7 @@ const verifyToken = async (req, res, next) => {
   res
     .status(200)
     .redirect(
-      `https://torn80beta.github.io/project-magic-task-manager/auth/resetePassword?verificationToken=${verificationToken}`
+      `${CLIENT_URL}/project-magic-task-manager/auth/resetePassword?verificationToken=${verificationToken}`
     );
 };
 
