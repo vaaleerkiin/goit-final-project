@@ -2,7 +2,7 @@
 
 Посилання на Backend: https://goit-final-project.onrender.com
 
-Документація: https://app.swaggerhub.com/apis-docs/vaaleerkiin/finalProject/
+Документація: https://goit-final-project.onrender.com/api-docs
 
 Посилання на Frontend: https://torn80beta.github.io/project-magic-task-manager
 
