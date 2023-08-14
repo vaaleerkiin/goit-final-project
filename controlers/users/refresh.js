@@ -40,8 +40,8 @@ const refresh = async (req, res) => {
       sid: newSession._id,
     });
   } catch (error) {
-    await Session.findById(req.body.sid);
-    throw HttpError(403, error.message);
+    await Session.findByIdAndDelete(req.body.sid);
+    throw HttpError(403);
   }
 };
 
