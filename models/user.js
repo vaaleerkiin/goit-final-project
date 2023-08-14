@@ -96,6 +96,7 @@ const helpShema = Joi.object({
 
 const refreshSchema = Joi.object({
   refreshToken: Joi.string().required(),
+  sid: Joi.string().required(),
 });
 
 const shema = {

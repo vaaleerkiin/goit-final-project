@@ -2,6 +2,7 @@ const { HttpError } = require("../../helpers");
 const { User } = require("../../models/user");
 const CryptoJS = require("crypto-js");
 const jwt = require("jsonwebtoken");
+const { Session } = require("../../models/session");
 const { ACCESS_SECRET_KEY, REFRESH_SECRET_KEY, SECRET_KEY } = process.env;
 
 const login = async (req, res, next) => {
@@ -20,7 +21,12 @@ const login = async (req, res, next) => {
   if (!passwordCompare) {
     throw HttpError(401, "Email or password is wrong");
   }
-  const payload = { id: user._id };
+
+  const newSession = await Session.create({
+    uid: user._id,
+  });
+
+  const payload = { uid: user._id, sid: newSession._id };
 
   const accessToken = jwt.sign(payload, ACCESS_SECRET_KEY, {
     expiresIn: "2m",
@@ -28,11 +34,12 @@ const login = async (req, res, next) => {
   const refreshToken = jwt.sign(payload, REFRESH_SECRET_KEY, {
     expiresIn: "7d",
   });
-   const data = await User.findByIdAndUpdate(user._id, { accessToken, refreshToken }, { new: true });
- 
+  const data = await User.findById(user._id);
+
   res.status(200).json({
-    accessToken: data.accessToken,
-    refreshToken: data.refreshToken,
+    accessToken,
+    refreshToken,
+    sid: newSession._id,
     user: { name: data.name, email: data.email, avatar: data.avatarURL.url },
     boards: data.boards,
     theme: data.theme,

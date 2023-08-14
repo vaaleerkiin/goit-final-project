@@ -1,11 +1,13 @@
-const { User } = require("../../models/user");
-
 const jwt = require("jsonwebtoken");
+const { Session } = require("../../models/session");
 
 const { CLIENT_URL, ACCESS_SECRET_KEY, REFRESH_SECRET_KEY } = process.env;
 
 const google = async (req, res, next) => {
-  const payload = { id: req.user._id };
+  const newSession = await Session.create({
+    uid: req.user._id,
+  });
+  const payload = { uid: req.user._id, sid: newSession._id };
 
   const accessToken = jwt.sign(payload, ACCESS_SECRET_KEY, {
     expiresIn: "2m",
@@ -14,10 +16,8 @@ const google = async (req, res, next) => {
     expiresIn: "7d",
   });
 
-  await User.findByIdAndUpdate(req.user._id, { accessToken, refreshToken });
-
   res.redirect(
-    `${CLIENT_URL}/project-magic-task-manager/welcome?accessToken=${accessToken}&refreshToken=${refreshToken}`
+    `${CLIENT_URL}/project-magic-task-manager/welcome?accessToken=${accessToken}&refreshToken=${refreshToken}&sessionId=${newSession._id}`
   );
 };
 
