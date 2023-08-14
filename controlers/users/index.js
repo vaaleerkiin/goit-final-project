@@ -13,6 +13,7 @@ const needHelp = require("./needHelp");
 const google = require("./google");
 const forgetPass = require("./forgetPass");
 const resetPassword = require("./resetPassword");
+const refresh = require("./refresh");
 
 module.exports = {
   register: ctrlWrapper(register),
@@ -28,4 +29,5 @@ module.exports = {
   google: ctrlWrapper(google),
   forgetPass: ctrlWrapper(forgetPass),
   resetPassword: ctrlWrapper(resetPassword),
+  refresh: ctrlWrapper(refresh),
 };

@@ -120,7 +120,7 @@
         ],
         "responses": {
           "200": {
-            "description": "User edited"
+            "description": "User"
           },
           "401": {
             "description": "Missing header with authorization token"
@@ -160,7 +160,7 @@
         },
         "responses": {
           "200": {
-            "description": "Avatar edited"
+            "description": "User edited"
           },
           "401": {
             "description": "Missing header with authorization token"
@@ -227,10 +227,37 @@
         },
         "responses": {
           "201": {
-            "description": "letter sent"
+            "description": "Letter sent"
           },
-          "401": {
-            "description": "Missing header with authorization token"
+          "400": {
+            "description": "Bad Request"
+          },
+          "500": {
+            "description": "Server error"
+          }
+        }
+      }
+    },
+    "/api/users/refresh": {
+      "post": {
+        "tags": ["User"],
+        "summary": "refresh",
+        "operationId": "refresh",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Refresh"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Token refreshed"
+          },
+          "403": {
+            "description": "Token invalid"
           },
           "500": {
             "description": "Server error"
@@ -258,7 +285,7 @@
         ],
         "responses": {
           "201": {
-            "description": "User created"
+            "description": "Boards"
           },
           "401": {
             "description": "Missing header with authorization token"
@@ -296,7 +323,7 @@
         },
         "responses": {
           "201": {
-            "description": "User created"
+            "description": "Board created"
           },
           "401": {
             "description": "Missing header with authorization token"
@@ -337,7 +364,7 @@
         ],
         "responses": {
           "201": {
-            "description": "email sended"
+            "description": "Get board by id"
           },
           "401": {
             "description": "Missing header with authorization token"
@@ -376,7 +403,7 @@
         ],
         "responses": {
           "201": {
-            "description": "User created"
+            "description": "Board deleted"
           },
           "401": {
             "description": "Missing header with authorization token"
@@ -424,7 +451,7 @@
         },
         "responses": {
           "201": {
-            "description": "User created"
+            "description": "Board edited"
           },
           "401": {
             "description": "Missing header with authorization token"
@@ -474,7 +501,7 @@
         },
         "responses": {
           "201": {
-            "description": "User created"
+            "description": "Column created"
           },
           "401": {
             "description": "Missing header with authorization token"
@@ -515,7 +542,7 @@
         ],
         "responses": {
           "201": {
-            "description": "User created"
+            "description": "Column deleted"
           },
           "401": {
             "description": "Missing header with authorization token"
@@ -563,7 +590,7 @@
         },
         "responses": {
           "201": {
-            "description": "User created"
+            "description": "Column edited"
           },
           "401": {
             "description": "Missing header with authorization token"
@@ -613,7 +640,7 @@
         },
         "responses": {
           "201": {
-            "description": "User created"
+            "description": "Task created"
           },
           "401": {
             "description": "Missing header with authorization token"
@@ -654,7 +681,7 @@
         ],
         "responses": {
           "201": {
-            "description": "User created"
+            "description": "Task deleted"
           },
           "401": {
             "description": "Missing header with authorization token"
@@ -702,7 +729,7 @@
         },
         "responses": {
           "201": {
-            "description": "User created"
+            "description": "Task edited"
           },
           "401": {
             "description": "Missing header with authorization token"
@@ -752,7 +779,7 @@
         },
         "responses": {
           "201": {
-            "description": "User created"
+            "description": "Task drag and droped"
           },
           "401": {
             "description": "Missing header with authorization token"
@@ -976,6 +1003,16 @@
             "type": "string",
             "format": "string",
             "example": "One of the [dark, light, violet]"
+          }
+        }
+      },
+      "Refresh": {
+        "type": "object",
+        "properties": {
+          "refreshToken": {
+            "type": "string",
+            "format": "string",
+            "example": "tgfldfghopdfghfgpdpshfhgh.dfhhydftghsdfgsdfghdggfdg.ewsreweqweq4.efdgfdgtstsdt"
           }
         }
       }

@@ -66,4 +66,6 @@ router.get(
   ctrl.google
 );
 
+router.post("/refresh", validateBody(shema.refreshSchema), ctrl.refresh);
+
 module.exports = router;
