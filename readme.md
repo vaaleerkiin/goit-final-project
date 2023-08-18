@@ -9,9 +9,13 @@ Use  ***TaskPro*** to increase productivity, prioritize tasks and achieve your g
 
 ***TaskPro*** prioritizes data security and privacy. The application uses advanced encryption methods and strong authentication mechanisms, protecting your confidential information. You can rest assured that your data remains private and secure on the platform.
 
-You are welcome to **TaskPro**: [Frontend](https://github.com/torn80beta/project-magic-task-manager.git)
+You are welcome to **TaskPro**: [Frontend](https://torn80beta.github.io/project-magic-task-manager/)
+
+Front-end **GitHub**: [GitHub](https://github.com/torn80beta/project-magic-task-manager)
 
 Back-end for **TaskPro**: [Backend](https://goit-final-project.onrender.com)
+
+Back-end **GitHub**: [GitHub](https://github.com/vaaleerkiin/goit-final-project-backend)
 
 Back-end for **documentation**: [Documentation](https://goit-final-project.onrender.com/api-docs)
 
